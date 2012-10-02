@@ -24,13 +24,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(basePackages = "com.shekhar.notebook")
 @EnableJpaRepositories(basePackages = "com.shekhar.notebook.repository")
 @EnableTransactionManagement
-public class ApplicationConfig {
+public class ApplicationContextConfig {
 
 	@Bean(destroyMethod = "close")
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://127.6.233.129:5432/notebook");
+		dataSource.setUrl("jdbc:postgresql://" + System.getenv("OPENSHIFT_DB_HOST") + ":"
+				+ System.getenv("OPENSHIFT_DB_PORT") + "/"+System.getenv("OPENSHIFT_APP_NAME"));
 		dataSource.setUsername(System.getenv("OPENSHIFT_DB_USERNAME"));
 		dataSource.setPassword(System.getenv("OPENSHIFT_DB_PASSWORD"));
 		dataSource.setTestOnBorrow(true);
@@ -41,8 +42,6 @@ public class ApplicationConfig {
 		dataSource.setMinEvictableIdleTimeMillis(1800000L);
 		dataSource.setValidationQuery("SELECT 1");
 		return dataSource;
-		// EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		// return builder.setType(EmbeddedDatabaseType.HSQL).build();
 	}
 
 	@Bean
