@@ -4,8 +4,8 @@
     <class>com.shekhar.notebook.domain.Note</class>
     <class>com.shekhar.notebook.domain.Notebook</class>
     <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.ProgressDialect"/>
-      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="create"/>
       <property name="hibernate.connection.charSet" value="UTF-8"/>
     </properties>
   </persistence-unit>
