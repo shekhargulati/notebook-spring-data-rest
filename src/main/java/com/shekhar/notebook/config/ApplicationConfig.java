@@ -55,6 +55,7 @@ public class ApplicationConfig {
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
 		factory.setPersistenceUnitName("notebook");
+		factory.setPersistenceXmlLocation("classpath:/META-INF/jpa-persistence.xml");
 		factory.setDataSource(dataSource());
 
 		factory.afterPropertiesSet();
