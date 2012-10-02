@@ -26,11 +26,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class ApplicationConfig {
 
-	@Bean(destroyMethod="close")
+	@Bean(destroyMethod = "close")
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl(System.getenv("OPENSHIFT_DB_URL"));
+		dataSource.setUrl("jdbc:" + System.getenv("OPENSHIFT_DB_URL") + System.getenv("OPENSHIFT_APP_NAME"));
 		dataSource.setUsername(System.getenv("OPENSHIFT_DB_USERNAME"));
 		dataSource.setPassword(System.getenv("OPENSHIFT_DB_PASSWORD"));
 		dataSource.setTestOnBorrow(true);
@@ -41,8 +41,8 @@ public class ApplicationConfig {
 		dataSource.setMinEvictableIdleTimeMillis(1800000L);
 		dataSource.setValidationQuery("SELECT 1");
 		return dataSource;
-		//EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		//return builder.setType(EmbeddedDatabaseType.HSQL).build();
+		// EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+		// return builder.setType(EmbeddedDatabaseType.HSQL).build();
 	}
 
 	@Bean
