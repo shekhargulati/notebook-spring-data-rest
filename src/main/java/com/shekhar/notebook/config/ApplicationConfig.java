@@ -3,6 +3,7 @@ package com.shekhar.notebook.config;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -27,17 +28,31 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class ApplicationConfig {
 
-	@Bean
+	@Bean(destroyMethod="close")
 	public DataSource dataSource() {
-		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		return builder.setType(EmbeddedDatabaseType.HSQL).build();
+		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setDriverClassName("org.postgresql.Driver");
+		dataSource.setUrl(System.getenv("OPENSHIFT_DB_URL"));
+		dataSource.setUsername(System.getenv("OPENSHIFT_DB_USERNAME"));
+		dataSource.setPassword(System.getenv("OPENSHIFT_DB_PASSWORD"));
+		dataSource.setTestOnBorrow(true);
+		dataSource.setTestOnReturn(true);
+		dataSource.setTestWhileIdle(true);
+		dataSource.setTimeBetweenEvictionRunsMillis(1800000L);
+		dataSource.setNumTestsPerEvictionRun(3);
+		dataSource.setMinEvictableIdleTimeMillis(1800000L);
+		dataSource.setValidationQuery("SELECT 1");
+		return dataSource;
+		//EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+		//return builder.setType(EmbeddedDatabaseType.HSQL).build();
 	}
 
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		vendorAdapter.setDatabase(Database.HSQL);
+		vendorAdapter.setDatabase(Database.POSTGRESQL);
 		vendorAdapter.setGenerateDdl(true);
+		vendorAdapter.setShowSql(true);
 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);

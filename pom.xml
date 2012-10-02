@@ -20,12 +20,12 @@
 			<name>Spring Maven MILESTONE Repository</name>
 			<url>http://repo.springsource.org/libs-milestone</url>
 		</repository>
-		
+
 		<repository>
-    <id>springsource-repo</id>
-    <name>SpringSource Repository</name>
-    <url>http://repo.springsource.org/snapshot</url>
-</repository>
+			<id>springsource-repo</id>
+			<name>SpringSource Repository</name>
+			<url>http://repo.springsource.org/snapshot</url>
+		</repository>
 	</repositories>
 	<dependencies>
 		<!-- Spring -->
@@ -136,14 +136,14 @@
 			<artifactId>spring-data-rest-webmvc</artifactId>
 			<version>1.0.0.RC3</version>
 		</dependency>
-		
+
 		<!-- For JSON -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-lgpl</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
@@ -185,6 +185,19 @@
 			<artifactId>jackson-xc</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
