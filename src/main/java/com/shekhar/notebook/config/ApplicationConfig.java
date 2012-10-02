@@ -30,7 +30,7 @@ public class ApplicationConfig {
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:" + System.getenv("OPENSHIFT_DB_URL") + System.getenv("OPENSHIFT_APP_NAME"));
+		dataSource.setUrl("jdbc:postgresql://127.6.233.129:5432/notebook");
 		dataSource.setUsername(System.getenv("OPENSHIFT_DB_USERNAME"));
 		dataSource.setPassword(System.getenv("OPENSHIFT_DB_PASSWORD"));
 		dataSource.setTestOnBorrow(true);
